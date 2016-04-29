@@ -212,17 +212,31 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
 
       :host([icon]) {
+
         border-radius: 50%;
         width: 60px;
         height: 60px;
         box-sizing: border-box;
-        padding: 18px;
+        padding: 14px;
         background-color: var(--bg-color);
         border: none;
         @apply(--layout-vertical);
         @apply(--layout-center-center);
       };
 
+      :host([icon][small]) {
+        width: 40px;
+        height: 40px;
+        box-sizing: border-box;
+        padding: 10px;
+      };
+
+      :host([icon][big]) {
+        width: 84px;
+        height: 84px;
+        box-sizing: border-box;
+        padding: 17px;
+      };
 
       :host([icon][outline]) {
         color: var(--outline-color);
@@ -232,16 +246,34 @@ Add outline="color" to make the outline-button (and add small or medium for size
       };
 
 
+      :host([back]) {
+        background-color: transparent;
+        box-sizing: border-box;
+        padding: 18px 24px 18px 24px;
+        background-color: var(--bg-color);
+        border: none;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        background-color: red;
+      };
+
     </style>
 
-    <template is="dom-if" if="{{!iconbtn}}">
+    <template is="dom-if" if="{{normal}}">
     <content></content>
     </template>
 
     <template is="dom-if" if="{{iconbtn}}">
-    <locals-icon icon="{{icon}}" iconcolor="{{txtcolor}}"></locals-icon>
+    <locals-icon icon="{{icon}}" iconcolor="{{txtcolor}}"
+      big$=[[big]] small$=[[small]]></locals-icon>
     </template>
 
+<!--     <template is="dom-if" if="{{back}}">
+    <button>
+    <locals-icon icon="back" iconcolor="{{txtcolor}}"></locals-icon>
+    <content></content>
+    </button>
+    </template> -->
 
   </template>
 
@@ -254,6 +286,12 @@ Add outline="color" to make the outline-button (and add small or medium for size
         /**
 
          */
+        normal: {
+          type:Boolean,
+          value: true,
+          observer: '_normal'
+
+        },  
 
         outline: {
           type:String,
@@ -270,6 +308,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
         iconbtn: {
           type:Boolean,
           value: false
+
         },  
 
         icon: {
@@ -280,7 +319,12 @@ Add outline="color" to make the outline-button (and add small or medium for size
         bg: {
           type:String,
           observer: '_bg'
-        },        
+        },
+
+        back: {
+          type:Boolean,
+          value: false
+        },  
 
       },
 
@@ -330,7 +374,16 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
       _icon: function(){
         this.iconbtn = true;
-        console.log("it is a iconbtn:", this.iconbtn, "nl. this one=", this.icon);
+        this.normal = false;
+        this.back = false;
+      },
+
+
+      _normal: function(){
+        if (this.normal){
+        this.iconbtn = false;
+        this.back = false;
+        }
       },
 
       _bg:function(){
