@@ -7,6 +7,8 @@ LOCALS
 -->
 
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
 <link rel="import" href="../locals-style/locals-style.html">
 <link rel="import" href="../locals-icon/locals-icon.html">
 
@@ -70,6 +72,35 @@ Add outline="color" to make the outline-button (and add small or medium for size
       :host:active {
         background-color: rgba(0,0,0,0.05);    
       }
+
+
+    @-webkit-keyframes objectactiveanimation {
+        0% {
+          -webkit-transform: scale(1);
+          }
+        100% {
+          -webkit-transform: scale(0.8);
+        }
+      }
+
+      @-moz-keyframes objectactiveanimation {
+        0% {
+          -moz-transform: scale(1);
+          }
+        100% {
+          -moz-transform: scale(0.8);
+        }
+      }
+
+      @keyframes objectactiveanimation {
+        0% {
+          transform: scale(1);
+          }
+        100% {
+          transform: scale(0.8);
+        }
+      }
+
 
 
 
@@ -257,6 +288,127 @@ Add outline="color" to make the outline-button (and add small or medium for size
         background-color: red;
       };
 
+
+      :host([object]) {
+        @apply(--opensans-reg);
+
+  
+        display: inline-block;
+        position: relative;
+        box-sizing: border-box;
+        outline-width: 0;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        z-index: 0;
+        background-color: transparent;
+        width: 200px;
+
+/*        background-color: rgba(0,0,0,0.05);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;*/
+        border:none;
+
+        color:black;
+        font-size: 16px;  
+        text-align: center;
+
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+      };
+
+      .totalobject {
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);        
+      }
+
+      .iconcontainer {
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        box-sizing: border-box;
+        border: 12px solid rgba(255,255,255,0.075);
+/*        background-color: rgba(255,255,255,0.055);
+*/
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        @apply(--layout-horizontal);
+        @apply(--layout-center-center);
+        transition: all .05s linear;
+
+      -webkit-animation: fadein 3s linear 2s infinite;
+      -moz-animation: fadein 3s linear 2s infinite;
+      animation: fadein 3s linear 2s infinite;
+
+
+      }
+
+      :host([object]):hover .iconcontainer {
+       transform: scale(1.05,1.05);
+       }
+
+      :host([object]):active .iconcontainer {
+       transform: scale(0.95,0.95);
+       }
+
+
+
+
+
+      @-webkit-keyframes fadein {
+        0% {
+        border: 12px solid rgba(255,255,255,0.075);
+          }
+        40% {
+        border: 12px solid rgba(255,255,255,0.075);
+        }
+        65% {
+        border: 12px solid rgba(255,255,255,0.15);
+        }
+        100% {
+        border: 12px solid rgba(255,255,255,0.075);
+        }
+      }
+
+      @-moz-keyframes fadein {
+        0% {
+        border: 12px solid rgba(255,255,255,0.075);
+          }
+        40% {
+        border: 12px solid rgba(255,255,255,0.075);
+        }
+        65% {
+        border: 12px solid rgba(255,255,255,0.15);
+        }
+        100% {
+        border: 12px solid rgba(255,255,255,0.075);
+        }
+      }
+
+      @keyframes fadein {
+        0% {
+        border: 12px solid rgba(255,255,255,0.075);
+          }
+        40% {
+        border: 12px solid rgba(255,255,255,0.075);
+        }
+        65% {
+        border: 12px solid rgba(255,255,255,0.15);
+        }
+        100% {
+        border: 12px solid rgba(255,255,255,0.075);
+        }
+      }
+
+
+
+
+
     </style>
 
     <template is="dom-if" if="{{normal}}">
@@ -268,12 +420,24 @@ Add outline="color" to make the outline-button (and add small or medium for size
       big$=[[big]] small$=[[small]]></locals-icon>
     </template>
 
-<!--     <template is="dom-if" if="{{back}}">
-    <button>
-    <locals-icon icon="back" iconcolor="{{txtcolor}}"></locals-icon>
-    <content></content>
-    </button>
+<!--     <template is="dom-if" if="{{objectbtn}}">
+      <div class="totalobject">
+        <div class="iconcontainer">
+          <locals-icon xxl icon="addavatar" iconcolor="blue"></locals-icon>
+        </div>
+        <content></content>  
+      </div>
     </template> -->
+
+    <template is="dom-if" if="{{objectbtn2}}">
+      <div class="totalobject">
+        <div class="iconcontainer">
+          <locals-icon class="iconz" xxl icon="{{object}}" iconcolor="blue"></locals-icon>
+        </div>
+        <content></content>  
+      </div>
+    </template>
+
 
   </template>
 
@@ -303,6 +467,23 @@ Add outline="color" to make the outline-button (and add small or medium for size
           type:String,
           value: 'darkgrey',
           observer: '_txtcolor'
+        },
+
+        objectbtn: {
+          type:Boolean,
+          value: false
+
+        },  
+        objectbtn2: {
+          type:Boolean,
+          value: false
+
+        }, 
+
+
+        object: {
+          type:String,
+          observer: '_object'
         },
 
         iconbtn: {
@@ -374,15 +555,23 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
       _icon: function(){
         this.iconbtn = true;
+        this.objectbtn = false;
+        this.objectbtn2 = false;
         this.normal = false;
-        this.back = false;
       },
 
+      _object: function(){
+        this.iconbtn = false;
+        this.objectbtn = false;
+        this.objectbtn2 = true;
+        console.log('this object:', this.object);
+        this.normal = false;
+      },
 
       _normal: function(){
         if (this.normal){
         this.iconbtn = false;
-        this.back = false;
+        this.objectbtn = false;
         }
       },
 
