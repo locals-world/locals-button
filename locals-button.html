@@ -331,21 +331,12 @@ Add outline="color" to make the outline-button (and add small or medium for size
         -webkit-user-select: none;
         user-select: none;
         box-sizing: border-box;
-        border: 12px solid rgba(255,255,255,0.075);
-/*        background-color: rgba(255,255,255,0.055);
-*/
         width: 200px;
         height: 200px;
         border-radius: 50%;
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
         transition: all .05s linear;
-
-      -webkit-animation: fadein 3s linear 2s infinite;
-      -moz-animation: fadein 3s linear 2s infinite;
-      animation: fadein 3s linear 2s infinite;
-
-
       }
 
       :host([object]):hover .iconcontainer {
@@ -356,8 +347,16 @@ Add outline="color" to make the outline-button (and add small or medium for size
        transform: scale(0.95,0.95);
        }
 
+       .start {
+        -webkit-animation: fadein 3s linear 2s infinite;
+        -moz-animation: fadein 3s linear 2s infinite;
+        animation: fadein 3s linear 2s infinite;
+        border: 12px solid rgba(255,255,255,0.075);
 
-
+       }
+       .shop {
+        border: 12px solid rgba(0,0,0,0.075);
+       }
 
 
       @-webkit-keyframes fadein {
@@ -431,7 +430,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
     <template is="dom-if" if="{{objectbtn2}}">
       <div class="totalobject">
-        <div class="iconcontainer">
+        <div class$="{{iconclass}} iconcontainer">
           <locals-icon class="iconz" xxl icon="{{object}}" iconcolor="blue"></locals-icon>
         </div>
         <content></content>  
@@ -507,6 +506,13 @@ Add outline="color" to make the outline-button (and add small or medium for size
           value: false
         },  
 
+        startbtn: {
+          type:Boolean,
+          value: false,
+          observer: '_startbtn'
+
+        },  
+
       },
 
       // Element Lifecycle
@@ -579,11 +585,16 @@ Add outline="color" to make the outline-button (and add small or medium for size
         this.bgcolor = 'var(--locals-'+this.bg+')';
         this.customStyle['--bg-color'] = this.bgcolor;
         this.updateStyles();    
+      },
+
+      _startbtn:function(){
+        if (this.startbtn){
+          this.iconclass = 'start';   
+          }
+         else {
+          this.iconclass = 'shop';   
+        }
       }
-
-
-
-
     });
   </script>
 </dom-module>
