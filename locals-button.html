@@ -256,8 +256,8 @@ Add outline="color" to make the outline-button (and add small or medium for size
       };
 
       :host([icon][small]) {
-        width: 45px;
-        height: 45px;
+        width: 40px;
+        height: 40px;
         box-sizing: border-box;
         padding: 10px;
       };
@@ -518,6 +518,11 @@ Add outline="color" to make the outline-button (and add small or medium for size
           observer: '_bg'
         },
 
+        bgrgba: {
+          type:String,
+          observer: '_bgrgba'
+        },
+
         back: {
           type:Boolean,
           value: false
@@ -603,6 +608,13 @@ Add outline="color" to make the outline-button (and add small or medium for size
         this.customStyle['--bg-color'] = this.bgcolor;
         this.updateStyles();    
       },
+
+      _bgrgba:function(){
+        this.bgcolor = 'rgba('+this.bgrgba+')';
+        this.customStyle['--bg-color'] = this.bgcolor;
+        this.updateStyles();    
+      },
+
 
       _startbtn:function(){
         if (this.startbtn){
