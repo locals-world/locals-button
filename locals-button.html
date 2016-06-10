@@ -438,6 +438,18 @@ Add outline="color" to make the outline-button (and add small or medium for size
     </template>
 
 
+    <template is="dom-if" if="{{submit}}">
+      <div class="totalobject">
+      <input type="submit">
+<!--         <div class$="{{iconclass}} iconcontainer">
+          <locals-icon class="iconz" xxl icon="v"></locals-icon>
+        </div>
+        <content></content> -->  
+      </div>
+    </template>
+
+
+
   </template>
 
   <script>
@@ -489,7 +501,12 @@ Add outline="color" to make the outline-button (and add small or medium for size
           type:Boolean,
           value: false
 
-        },  
+        },
+
+        submit: {
+          type:Boolean,
+          value: false
+        },           
 
         icon: {
           type:String,
