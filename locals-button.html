@@ -38,14 +38,10 @@ Add outline="color" to make the outline-button (and add small or medium for size
 <dom-module id="locals-button">
   <template>
     <style>
-      :host {
-        @apply(--opensans-reg);
-        font-size: 16px;    
+      :host { 
         display: inline-block;
         position: relative;
         box-sizing: border-box;
-        padding: 18px 24px 18px 24px;
-        text-align: center;
         outline-width: 0;
         border-radius: 0px;
         -moz-user-select: none;
@@ -54,17 +50,28 @@ Add outline="color" to make the outline-button (and add small or medium for size
         user-select: none;
         cursor: pointer;
         z-index: 0;
-        /* color is in general black, unless overwritten by specific class */
-        color:black;
-/*        box-shadow: 2px 2px 0px rgba(0,0,0,0.2);*/
+
         --outline-color: black;
         --txt-color: black;
         --bg-color: var(--locals-grey2);
+      }
+
+
+
+      :host([txt]) {
+        color:black;
+        padding: 18px 24px 18px 24px;
+        text-align: center;
         border-top: 1px solid rgba(0,0,0,0.1);
         border-right: 2px solid rgba(0,0,0,0.2);
         border-bottom: 2px solid rgba(0,0,0,0.2);
         border-left: 1px solid rgba(0,0,0,0.1);
-      }
+        @apply(--opensans-reg);
+        font-size: 16px;   
+      };
+
+
+
 
 /*      :host:hover {
         background-color: rgba(0,0,0,0.025);    
@@ -125,7 +132,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
 
       /* Colors + active-states */
-      :host([green]) {
+     /* :host([green]) {
         color: white;
         background-color: var(--locals-green);    
       }
@@ -179,11 +186,11 @@ Add outline="color" to make the outline-button (and add small or medium for size
       }
       :host([lightblue]):active {
         background-color: var(--locals-lightblue-darker);    
-      }
+      }*/
 
 
       /* Outline + active-states */
-      :host([outline][small]) {
+      /*:host([outline][small]) {
         color: var(--outline-color);
         background: transparent;
         border: 1px solid var(--outline-color);
@@ -216,7 +223,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
       }
       :host([outline][large]):active {
         @apply(--opensans-light);
-      }
+      }*/
 
 
       :host([disabled]) {
@@ -243,7 +250,6 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
 
       :host([icon]) {
-
         border-radius: 50%;
         width: 55px;
         height: 55px;
@@ -298,8 +304,6 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
       :host([object]) {
         @apply(--opensans-reg);
-
-  
         display: inline-block;
         position: relative;
         box-sizing: border-box;
@@ -312,17 +316,10 @@ Add outline="color" to make the outline-button (and add small or medium for size
         z-index: 0;
         background-color: transparent;
         width: 200px;
-
-/*        background-color: rgba(0,0,0,0.05);
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;*/
         border:none;
-
         color:black;
         font-size: 16px;  
         text-align: center;
-
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
       };
@@ -364,6 +361,66 @@ Add outline="color" to make the outline-button (and add small or medium for size
        .shop {
         border: 12px solid rgba(0,0,0,0.075);
        }
+
+
+
+
+      :host([submit]) {
+        border-radius: 50%;
+        width: 55px;
+        height: 55px;
+        box-sizing: border-box;
+        padding: 14px;
+        background-color: var(--bg-color);
+        border: none;
+
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+      };
+
+      :host([submit]) input {
+        width: 55px;
+        height: 55px;
+        background-color: red;
+        z-index: 88;
+        @apply(--layout-fit);
+        opacity: 0;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+      };
+
+
+      :host([submit][small]) {
+        width: 40px;
+        height: 40px;
+        box-sizing: border-box;
+        padding: 10px;
+      };
+
+      :host([submit][confirmsmall]) {
+        width: 50px;
+        height: 50px;
+        box-sizing: border-box;
+        padding: 10px;
+      };
+
+      :host([submit][big]) {
+        width: 84px;
+        height: 84px;
+        box-sizing: border-box;
+        padding: 17px;
+      };
+
+
+
 
 
       @-webkit-keyframes fadein {
@@ -417,7 +474,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
     </style>
 
-    <template is="dom-if" if="{{normal}}">
+    <template is="dom-if" if="{{txtbtn}}">
     <content></content>
     </template>
 
@@ -446,13 +503,14 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
 
     <template is="dom-if" if="{{submit}}">
-      <div class="totalobject">
       <input type="submit">
+      <locals-icon icon="v" iconcolor="{{txtcolor}}"
+      big$=[[big]] small$=[[small]]></locals-icon>
+
 <!--         <div class$="{{iconclass}} iconcontainer">
           <locals-icon class="iconz" xxl icon="v"></locals-icon>
         </div>
         <content></content> -->  
-      </div>
     </template>
 
 
@@ -468,10 +526,10 @@ Add outline="color" to make the outline-button (and add small or medium for size
         /**
 
          */
-        normal: {
+        txtbtn: {
           type:Boolean,
           value: true,
-          observer: '_normal'
+          observer: '_txtbtn'
 
         },  
 
@@ -512,7 +570,9 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
         submit: {
           type:Boolean,
-          value: false
+          value: false,
+          observer: '_submit'
+
         },           
 
         icon: {
@@ -592,7 +652,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
         this.iconbtn = true;
         this.objectbtn = false;
         this.objectbtn2 = false;
-        this.normal = false;
+        this.txtbtn = false;
       },
 
       _object: function(){
@@ -600,14 +660,22 @@ Add outline="color" to make the outline-button (and add small or medium for size
         this.objectbtn = false;
         this.objectbtn2 = true;
         console.log('this object:', this.object);
-        this.normal = false;
+        this.txtbtn = false;
       },
 
-      _normal: function(){
-        if (this.normal){
+      _txtbtn: function(){
+        if (this.txtbtn){
         this.iconbtn = false;
         this.objectbtn = false;
         }
+      },
+
+      _submit:function(){
+        if (this.submit){
+        this.iconbtn = false;
+        this.objectbtn = false;
+        this.normal = false;    
+      }
       },
 
       _bg:function(){
