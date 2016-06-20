@@ -50,10 +50,13 @@ Add outline="color" to make the outline-button (and add small or medium for size
         user-select: none;
         cursor: pointer;
         z-index: 0;
+        opacity: var(--opacity-disabled);
 
         --outline-color: black;
         --txt-color: black;
         --bg-color: var(--locals-grey2);
+        --opacity-disabled: 1;
+
       }
 
 
@@ -595,6 +598,12 @@ Add outline="color" to make the outline-button (and add small or medium for size
           value: false
         },  
 
+        disabled: {
+          type:Boolean,
+          value: false,
+          observer: '_disabled'
+        },  
+
         startbtn: {
           type:Boolean,
           value: false,
@@ -687,6 +696,15 @@ Add outline="color" to make the outline-button (and add small or medium for size
       _bgrgba:function(){
         this.bgcolor = 'rgba('+this.bgrgba+')';
         this.customStyle['--bg-color'] = this.bgcolor;
+        this.updateStyles();    
+      },
+
+      _disabled:function(){
+        if (this.disabled){
+        this.customStyle['--opacity-disabled'] = '0.35';
+        } else {
+        this.customStyle['--opacity-disabled'] = '1';
+        }
         this.updateStyles();    
       },
 
