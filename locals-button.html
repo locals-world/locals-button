@@ -550,7 +550,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
     </template> -->
 
     <template is="dom-if" if="{{objectbtn2}}">
-      <div class="totalobject">
+      <div class="totalobject" on-tap="fireDetail">
         <div class$="{{iconclass}} iconcontainer">
           <locals-icon class="iconz" xxl icon="{{object}}" iconcolor="blue"></locals-icon>
         </div>
@@ -770,7 +770,14 @@ Add outline="color" to make the outline-button (and add small or medium for size
          else {
           this.iconclass = 'shop';   
         }
+      },
+
+      fireDetail: function(){
+      this.fire('object-pressed', this.object);
+      
       }
+
+
     });
   </script>
 </dom-module>
