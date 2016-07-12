@@ -13,22 +13,18 @@ LOCALS
 <link rel="import" href="../locals-icon/locals-icon.html">
 
 <!--
-Buttons in the Locals-style. Example:
+Buttons in the Locals-style:
 
-    <locals-button> Button </locals-button>
+Choose format:
+txt | icon | object
 
-Add color or size as attribute to modify:
+Add size if default is no good:
+small | big
 
-    <locals-button small green> Small green button </locals-button>
+Use:
+- disabled
+- txtcolor
 
-    <locals-button medium yellow> Medium yellow button </locals-button>
-    
-    <locals-button large blue> Large blue button </locals-button>
-
-
-Add outline="color" to make the outline-button (and add small or medium for size):
-
-    <locals-button small outline="green"> Small green outline button </locals-button>
 
 
 @demo demo/index.html
@@ -56,25 +52,8 @@ Add outline="color" to make the outline-button (and add small or medium for size
         --txt-color: black;
         --bg-color: var(--locals-grey2);
         --opacity-disabled: 1;
-
-      }
-      :hover:active {
-        background-image: none;
-        outline: 0;
-        -webkit-box-shadow: none;
-        box-shadow: none;
       }
 
-
-
-      .objectbtntxt {
-        margin: 15px 0px 0px 0px;
-        @apply(--opensans-reg);
-        color: var(--locals-darkgrey);
-        width: 100%;
-        text-align: center;
-/*        font-size: 13px;*/
-      }
 
 
 
@@ -90,61 +69,15 @@ Add outline="color" to make the outline-button (and add small or medium for size
         font-size: 16px;   
       };
 
-
- 
-      :host:active {
-        background-color: rgba(0,0,0,0.05);    
-      }
-
-
-    @-webkit-keyframes objectactiveanimation {
-        0% {
-          -webkit-transform: scale(1);
-          }
-        100% {
-          -webkit-transform: scale(0.8);
-        }
-      }
-
-      @-moz-keyframes objectactiveanimation {
-        0% {
-          -moz-transform: scale(1);
-          }
-        100% {
-          -moz-transform: scale(0.8);
-        }
-      }
-
-      @keyframes objectactiveanimation {
-        0% {
-          transform: scale(1);
-          }
-        100% {
-          transform: scale(0.8);
-        }
-      }
-
-
-
-
-
-      /* Sizes */
-      :host([small]) {
+      :host([txt][small]) {
         font-size: 12px;    
         padding: 10px 15px 10px 15px;
       };
 
-      :host([medium]) {
+      :host([txt][big]) {
         padding: 16px 24px 16px 24px;
         font-size: 22px;    
       };
-
-      :host([large]) {
-        padding: 25px 40px 25px 40px;
-        font-size: 38px;    
-        @apply(--opensans-light);
-
-      }
 
 
       :host([disabled]) {
@@ -163,7 +96,7 @@ Add outline="color" to make the outline-button (and add small or medium for size
         @apply(--opensans-semibold);
       }
 
-      :host([txtcolor][large]) {
+      :host([txtcolor][big]) {
         color: var(--txt-color);
         @apply(--opensans-light);
       }
@@ -189,20 +122,9 @@ Add outline="color" to make the outline-button (and add small or medium for size
         background-image: none;
         -webkit-box-shadow: none;
         box-shadow: none;
+        cursor: pointer;
+
       };
-
-/*      :host([icon]) button {
-        width: 100%;
-        height: 100%;
-        box-sizing: border-box;
-        padding: 0px;
-        margin: 0px;
-      };*/
-
-
-/*      :host([icon]):hover {
-       transform: scale(1.05,1.05);
-       }*/
 
       :host([icon]):active {
        transform: scale(0.95,0.95);
@@ -217,38 +139,63 @@ Add outline="color" to make the outline-button (and add small or medium for size
         user-select: none;
       }
 
-
-
-      :host([icon][small]) button {
-        width: 40px;
-        height: 40px;
+      :host([icon][veryverysmall]) button {
+        width: 35px;
+        height: 35px;
         box-sizing: border-box;
         padding: 10px;
       };
 
-      :host([icon][confirmsmall]) button {
+      :host([icon][verysmall]) button {
+        width: 42px;
+        height: 42px;
+        box-sizing: border-box;
+        padding: 10px;
+      };
+
+      :host([icon][small]) button {
         width: 50px;
         height: 50px;
         box-sizing: border-box;
         padding: 10px;
       };
 
-      :host([icon][big]) button {
-        width: 84px;
-        height: 84px;
+      :host([icon]) button {
+        width: 70px;
+        height: 70px;
         box-sizing: border-box;
-        padding: 17px;
+        padding: 10px;
       };
 
-      :host([icon][outline]) {
+      :host([icon][big]) button {
+        width: 100px;
+        height: 100px;
+        box-sizing: border-box;
+        padding: 15px;
+      };
+
+      :host([icon][xl]) button {
+        width: 130px;
+        height: 130px;
+        box-sizing: border-box;
+        padding: 15px;
+      };
+
+      :host([icon][xxl]) button {
+        width: 180px;
+        height: 180px;
+        box-sizing: border-box;
+        padding: 15px;
+      };
+/*      :host([icon][outline]) {
         color: var(--outline-color);
         background: transparent;
         border: 2px solid var(--outline-color);
         box-shadow: none;
       };
+*/
 
-
-      :host([back]) {
+/*      :host([back]) {
         background-color: transparent;
         box-sizing: border-box;
         padding: 18px 24px 18px 24px;
@@ -257,70 +204,128 @@ Add outline="color" to make the outline-button (and add small or medium for size
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
         background-color: red;
-      };
+      };*/
 
 
-      :host([object]) {
-        @apply(--opensans-reg);
+      :host([object]) button {
+        border-radius: 50%;
+        box-sizing: border-box;
+        background-color: transparent;
+        border: none;
+        @apply(--layout-vertical);
+        @apply(--layout-center-center);
+        outline: 0;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        transition: all .05s linear;
+        background-image: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        cursor: pointer;
+
+/*
+        background-color: transparent;
+        background-image: none;
+
         display: inline-block;
         position: relative;
         box-sizing: border-box;
         outline-width: 0;
+        outline: 0;
+
         -moz-user-select: none;
         -ms-user-select: none;
         -webkit-user-select: none;
         user-select: none;
         cursor: pointer;
         z-index: 0;
-        background-color: transparent;
-        width: 200px;
-        border:none;
-        color:black;
-        font-size: 16px;  
-        text-align: center;
+
+        box-sizing: border-box;*/
+
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: 6px solid rgba(0,0,0,0.075);
         @apply(--layout-horizontal);
         @apply(--layout-center-center);
+
       };
 
-      .totalobject {
-        @apply(--layout-vertical);
-        @apply(--layout-center-center);        
-      }
 
-      .iconcontainer {
+
+      :host([object][veryverysmall]) button {
+        width: 23px;
+        height: 23px;
+        box-sizing: border-box;
+        border: 4px solid rgba(0,0,0,0.075);
+      };
+
+
+      :host([object][verysmall]) button {
+        width: 32px;
+        height: 32px;
+        box-sizing: border-box;
+        border: 4px solid rgba(0,0,0,0.075);
+      };
+
+      :host([object][small]) button {
+        width: 40px;
+        height: 40px;
+        box-sizing: border-box;
+        border: 4px solid rgba(0,0,0,0.075);
+      };
+
+
+
+      :host([object][big]) button {
+        width: 90px;
+        height: 90px;
+        box-sizing: border-box;
+        border: 6px solid rgba(0,0,0,0.075);
+      };
+
+      :host([object][xl]) button {
+        width: 130px;
+        height: 130px;
+        box-sizing: border-box;
+        border: 9px solid rgba(0,0,0,0.075);
+      };
+
+      :host([object][xxl]) button {
+        width: 180px;
+        height: 180px;
+        box-sizing: border-box;
+        border: 12px solid rgba(0,0,0,0.075);
+      };
+
+      :host([object]):hover {
+       transform: scale(1.05,1.05);
+       }
+
+      :host([object]):active {
+       transform: scale(0.95,0.95);
+        background-image: none;
+        background-color: transparent;
+        outline: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
         -moz-user-select: none;
         -ms-user-select: none;
         -webkit-user-select: none;
         user-select: none;
-        box-sizing: border-box;
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        @apply(--layout-horizontal);
-        @apply(--layout-center-center);
-        transition: all .05s linear;
-      }
-
-      :host([object]):hover .iconcontainer {
-       transform: scale(1.05,1.05);
        }
 
-      :host([object]):active .iconcontainer {
-       transform: scale(0.95,0.95);
-       }
+
+
 
        .start {
         -webkit-animation: fadein 3s linear 2s infinite;
         -moz-animation: fadein 3s linear 2s infinite;
         animation: fadein 3s linear 2s infinite;
         border: 12px solid rgba(255,255,255,0.075);
-
        }
-       .shop {
-        border: 12px solid rgba(0,0,0,0.075);
-       }
-
-
 
 
       :host([submit]) {
@@ -379,8 +384,6 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
 
 
-
-
       @-webkit-keyframes fadein {
         0% {
         border: 12px solid rgba(255,255,255,0.075);
@@ -428,9 +431,37 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
 
 
+      @-webkit-keyframes objectactiveanimation {
+          0% {
+            -webkit-transform: scale(1);
+            }
+          100% {
+            -webkit-transform: scale(0.8);
+          }
+        }
+
+        @-moz-keyframes objectactiveanimation {
+          0% {
+            -moz-transform: scale(1);
+            }
+          100% {
+            -moz-transform: scale(0.8);
+          }
+        }
+
+        @keyframes objectactiveanimation {
+          0% {
+            transform: scale(1);
+            }
+          100% {
+            transform: scale(0.8);
+          }
+      }
 
     </style>
 
+
+<template is="dom-if" if="{{readytorender}}">
     <template is="dom-if" if="{{txtbtn}}">
     <content></content>
     </template>
@@ -438,40 +469,25 @@ Add outline="color" to make the outline-button (and add small or medium for size
     <template is="dom-if" if="{{iconbtn}}">
     <button>
     <locals-icon icon="{{icon}}" iconcolor="{{txtcolor}}"
-      big$=[[big]] small$=[[small]]></locals-icon>
+      veryverysmall$=[[veryverysmall]] verysmall$=[[verysmall]] small$=[[small]] big$=[[big]]  xl$=[[xl]] xxl$=[[xxl]]></locals-icon>
       </button>
     </template>
 
-<!--     <template is="dom-if" if="{{objectbtn}}">
-      <div class="totalobject">
-        <div class="iconcontainer">
-          <locals-icon xxl icon="addavatar" iconcolor="blue"></locals-icon>
-        </div>
-        <content></content>  
-      </div>
-    </template> -->
-
+    
     <template is="dom-if" if="{{objectbtn2}}">
-      <div class="totalobject" on-tap="fireDetail">
-        <div class$="{{iconclass}} iconcontainer">
-          <locals-icon class="iconz" xxl icon="{{object}}" iconcolor="blue"></locals-icon>
-        </div>
-        <div class="objectbtntxt"><content></content></div>  
-      </div>
+      <button class$="{{iconclass}} iconcontainer" on-tap="fireDetail">
+        <locals-icon class="iconz" veryverysmall$=[[veryverysmall]] veysmall$=[[veysmall]] small$=[[small]] big$=[[big]]  xl$=[[xl]] xxl$=[[xxl]] icon="{{object}}" iconcolor="blue"></locals-icon>
+      </button>
     </template>
-
 
     <template is="dom-if" if="{{submit}}">
       <input type="submit">
       <locals-icon icon="v" iconcolor="{{txtcolor}}"
       big$=[[big]] small$=[[small]]></locals-icon>
-
-<!--         <div class$="{{iconclass}} iconcontainer">
-          <locals-icon class="iconz" xxl icon="v"></locals-icon>
-        </div>
-        <content></content> -->  
     </template>
 
+
+</template>
 
 
   </template>
@@ -482,9 +498,11 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
       properties: {
 
-        /**
+        readytorender: {
+          type:Boolean,
+          value: false
+        },
 
-         */
         txtbtn: {
           type:Boolean,
           value: true,
@@ -492,23 +510,13 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
         },  
 
-        outline: {
-          type:String,
-          value: 'blue',
-          observer: '_outline'
-        },
-
         txtcolor: {
           type:String,
           value: 'darkgrey',
           observer: '_txtcolor'
         },
+ 
 
-        objectbtn: {
-          type:Boolean,
-          value: false
-
-        },  
         objectbtn2: {
           type:Boolean,
           value: false
@@ -521,18 +529,20 @@ Add outline="color" to make the outline-button (and add small or medium for size
           observer: '_object'
         },
 
+
+
         iconbtn: {
           type:Boolean,
           value: false
 
         },
 
-        submit: {
-          type:Boolean,
-          value: false,
-          observer: '_submit'
+        // submit: {
+        //   type:Boolean,
+        //   value: false,
+        //   observer: '_submit'
 
-        },           
+        // },           
 
         icon: {
           type:String,
@@ -572,41 +582,23 @@ Add outline="color" to make the outline-button (and add small or medium for size
       // Element Lifecycle
 
       ready: function() {
-        // `ready` is called after all elements have been configured, but
-        // propagates bottom-up. This element's children are ready, but parents
-        // are not.
-        //
-        // This is the point where you should make modifications to the DOM (when
-        // necessary), or kick off any processes the element wants to perform.
       },
 
       attached: function() {
-        // `attached` fires once the element and its parents have been inserted
-        // into a document.
-        //
-        // This is a good place to perform any work related to your element's
-        // visual state or active behavior (measuring sizes, beginning animations,
-        // loading resources, etc).
       },
 
       detached: function() {
-        // The analog to `attached`, `detached` fires when the element has been
-        // removed from a document.
-        //
-        // Use this to clean up anything you did in `attached`.
       },
 
-      _outline: function(outline) {
-        // console.log(this.outline);
-        this.outlinecolor = 'var(--locals-'+this.outline+')';
-        this.customStyle['--outline-color'] = this.outlinecolor;
-        this.updateStyles();
-      },
+      // _outline: function(outline) {
+      //   this.outlinecolor = 'var(--locals-'+this.outline+')';
+      //   this.customStyle['--outline-color'] = this.outlinecolor;
+      //   this.updateStyles();
+      // },
 
 
 
       _txtcolor: function(txtcolor) {
-        // console.log(this.txtcolor);
         this.txtcolorcomplete = 'var(--locals-'+this.txtcolor+')';
         this.customStyle['--txt-color'] = this.txtcolorcomplete;
         this.updateStyles();
@@ -615,17 +607,17 @@ Add outline="color" to make the outline-button (and add small or medium for size
 
       _icon: function(){
         this.iconbtn = true;
-        this.objectbtn = false;
         this.objectbtn2 = false;
         this.txtbtn = false;
+        this.readytorender = true;
       },
 
       _object: function(){
         this.iconbtn = false;
-        this.objectbtn = false;
         this.objectbtn2 = true;
-        console.log('this object:', this.object);
         this.txtbtn = false;
+        console.log('WETTEKIK WEL WAKIK MOET DOEN??', this.object);
+        this.readytorender = true;
       },
 
       _txtbtn: function(){
