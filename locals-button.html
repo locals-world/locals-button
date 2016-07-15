@@ -247,8 +247,8 @@ Use:
         width: 70px;
         height: 70px;
         border-radius: 50%;
-        border: 6px solid rgba(0,0,0,0.075);
-        @apply(--layout-horizontal);
+/*        border: 6px solid rgba(0,0,0,0.075);
+*/        @apply(--layout-horizontal);
         @apply(--layout-center-center);
 
       };
@@ -317,15 +317,20 @@ Use:
         user-select: none;
        }
 
-
-
-
-       .start {
+      :host([object][startbtn]) button {
+        border: 12px solid rgba(255,255,255,0.075);
         -webkit-animation: fadein 3s linear 2s infinite;
         -moz-animation: fadein 3s linear 2s infinite;
         animation: fadein 3s linear 2s infinite;
+      }
+
+/*
+       .start button {
         border: 12px solid rgba(255,255,255,0.075);
-       }
+        background-color: red;
+
+
+       }*/
 
 
       :host([submit]) {
